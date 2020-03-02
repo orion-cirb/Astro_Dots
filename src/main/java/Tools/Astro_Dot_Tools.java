@@ -1037,19 +1037,31 @@ private static double nucSph = 0.3;
     */
     public static void computeDotsParams(ImagePlus imgAstroMap, ImagePlus imgAstro, Objects3DPopulation dotsPop, Object3D astroNuc, String roiName, 
             BufferedWriter results, String imageName) throws IOException {
-        double astroDiam = 0;
-        double dotInt = 0;
-        double dotVol = 0; 
-        double distToNuc = 0;
+        double inSoma = 0;
+        double inLarge = 0;
+        double inFine = 0; 
+        double outAstro = 0;
+        int totalDots = dotsPop.getNbObjects();
         int dotType = 0;
-        for (int n = 0; n < dotsPop.getNbObjects(); n++) {
-            Object3D obj = dotsPop.getObject(n);
-            dotVol = obj.getVolumeUnit();
-            astroDiam = obj.getPixMaxValue(ImageHandler.wrap(imgAstroMap));
-            dotInt = obj.getPixMeanValue(ImageHandler.wrap(imgAstro));
-            distToNuc = obj.distCenterBorderUnit(astroNuc);
-            dotType = obj.getValue();
-            results.write(imageName + "\t" + roiName + "\t" + n + "\t" + dotType + "\t" + dotVol + "\t" + dotInt + "\t" + astroDiam + "\t" + distToNuc + "\n");
+        for (int n = 0; n < totalDots; n++) {
+            Object3D dotObj = dotsPop.getObject(n);
+            dotType = dotObj.getValue();
+            double distNuc = dotObj.distCenterBorderUnit(astroNuc);
+            switch (dotType) {
+                case 0 :
+                    outAstro++;
+                    break;
+                case 1 : 
+                    inFine++;
+                    break;
+                case 2 :
+                    if (distNuc < somaDist)
+                        inSoma++;
+                    else 
+                        inLarge++;
+                    break;
+            }
+            results.write(imageName + "\t" + roiName + "\t" + inSoma/totalDots + "\t" + inLarge/totalDots + "\t" + inFine/totalDots + "\t" + outAstro/totalDots + "\n");
             results.flush();
         }
     }

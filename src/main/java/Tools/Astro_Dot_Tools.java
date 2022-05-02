@@ -12,7 +12,6 @@ import ij.Prefs;
 import ij.WindowManager;
 import ij.gui.NonBlockingGenericDialog;
 import ij.gui.Roi;
-import ij.gui.WaitForUserDialog;
 import ij.io.FileSaver;
 import ij.measure.*;
 import ij.plugin.Duplicator;
@@ -31,7 +30,6 @@ import java.awt.Font;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 import mcib3d.geom.Object3D;
 import mcib3d.geom.Object3DVoxels;
@@ -44,7 +42,6 @@ import mcib3d.image3d.ImageLabeller;
 import mcib3d.image3d.distanceMap3d.EDT;
 import mcib3d.image3d.processing.FastFilters3D;
 import mcib3d.image3d.regionGrowing.Watershed3D;
-import mcib3d.utils.ThreadUtil;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import sc.fiji.localThickness.Clean_Up_Local_Thickness;
 import sc.fiji.localThickness.EDT_S1D;
@@ -561,12 +558,12 @@ private static double nucSph = 0.3;
         imgNucZCrop.deleteRoi();
         ImagePlus img = imgNucZCrop.duplicate();
         double dotSize = nucDotSize/imgNucZCrop.getCalibration().pixelWidth;
-        IJ.run(img, "Subtract Background...", "rolling=150 stack");
+        //IJ.run(img, "Subtract Background...", "rolling=150 stack");
         ImageStack stack = new ImageStack(imgNucZCrop.getWidth(), imgNucZCrop.getHeight());
         for (int i = 1; i <= img.getStackSize(); i++) {
             img.setZ(i);
             img.updateAndDraw();
-            IJ.run(img, "Nuceli Outline", "blur=15 blur2=20 threshold_method=Triangle outlier_radius="+dotSize+" outlier_threshold=1 max_nucleus_size=200 "
+            IJ.run(img, "Nuclei Outline", "blur=15 blur2=20 threshold_method=Triangle outlier_radius="+dotSize+" outlier_threshold=1 max_nucleus_size=200 "
                     + "min_nucleus_size=10 erosion=5 expansion_inner=5 expansion=5 results_overlay");
             img.setZ(1);
             img.updateAndDraw();
@@ -1026,8 +1023,6 @@ private static double nucSph = 0.3;
     * dots type
     * dot volume
     * astrocyte diameter
-     * @param imgAstroMap
-     * @param imgAstro
      * @param dotsPop
      * @param astroNuc
      * @param roiName
@@ -1035,8 +1030,7 @@ private static double nucSph = 0.3;
      * @param imageName
      * @throws java.io.IOException
     */
-    public static void computeDotsParams(ImagePlus imgAstroMap, ImagePlus imgAstro, Objects3DPopulation dotsPop, Object3D astroNuc, String roiName, 
-            BufferedWriter results, String imageName) throws IOException {
+    public static void computeDotsParams(Objects3DPopulation dotsPop, Object3D astroNuc, String roiName, BufferedWriter results, String imageName) throws IOException {
         double inSoma = 0;
         double inLarge = 0;
         double inFine = 0; 
@@ -1061,9 +1055,10 @@ private static double nucSph = 0.3;
                         inLarge++;
                     break;
             }
-            results.write(imageName + "\t" + roiName + "\t" + inSoma/totalDots + "\t" + inLarge/totalDots + "\t" + inFine/totalDots + "\t" + outAstro/totalDots + "\n");
-            results.flush();
+            
         }
+        results.write(imageName + "\t" + roiName + "\t" + (inSoma/totalDots)*100 + "\t" + (inLarge/totalDots)*100 + "\t" + (inFine/totalDots)*100 + "\t" + (outAstro/totalDots)*100 + "\n");
+        results.flush();
     }
     
 }

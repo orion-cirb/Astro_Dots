@@ -105,10 +105,10 @@ public class Astro_Dot implements PlugIn {
                     + "\tDots mean intensity in Astro\tMean process diameter\tPercentage of dot in GFAP neg\n");
             outPutResults.flush();
             
-            // Write headers for dots parameters results file
-            FileWriter fileDotsResults = new FileWriter(outDirResults + "AstroDotPop_" + inDir.getName() + ".xls", false);
+            // Write headers for dots classification results file
+            FileWriter fileDotsResults = new FileWriter(outDirResults + "AstroDotClassification_" + inDir.getName() + ".xls", false);
             BufferedWriter outPutDotsResults = new BufferedWriter(fileDotsResults);
-            outPutDotsResults.write("rootName\tRoi Name\t#dots\tDot type\tdot volume\tDot Mean Int.\tAstro diameter\tDistance to nucleus\n");
+            outPutDotsResults.write("rootName\tRoi Name\t% dots in soma\t% dots in large processes\t% dots in fine processes\t% dots out of astrocyte\n");
             outPutDotsResults.flush();
             
             // create OME-XML metadata store of the latest schema version
@@ -235,6 +235,7 @@ public class Astro_Dot implements PlugIn {
                         
                         // find background
                         find_background(imgAstro);
+                        
                         // for each roi open image and crop
                         for (int r = 0; r < rm.getCount(); r++) {
                             index++;                            
@@ -263,21 +264,6 @@ public class Astro_Dot implements PlugIn {
                             imgNucZCrop.updateAndDraw();
                             roiAstro = imgNucZCrop.getRoi();
                             
-//                            ImagePlus imgNucSeg = segmentNucleus(imgNucZCrop, roiAstro);
-//                            // WaterShed slipt
-//                            ImagePlus imgNucSplit = watershedSplit(imgNucSeg, 10);
-//                            imgNucSplit.setCalibration(cal);
-//                            IJ.run(imgNucSplit, "Fill Holes", "stack");
-                            
-//                            // find nucleus population
-//                            Objects3DPopulation nucPop = getPopFromImage(imgNucSplit);
-//                            System.out.println("Roi = "+index+" of " + rm.getCount());
-//                            System.out.println("Nucleus number = "+nucPop.getNbObjects());
-//                            objectsSizeFilter(minNucSize, maxNucSize, nucPop, imgNucSplit, true);
-//                            System.out.println("After size filter Nucleus number = "+nucPop.getNbObjects());
-//                            flush_close(imgNucSeg);
-//                            flush_close(imgNucSplit);
-
                             // find nucleus population
                             Objects3DPopulation nucPop = segmentNucleus2(imgNucZCrop, roiAstro);
                             System.out.println("Roi = "+index+" of " + rm.getCount());
@@ -339,7 +325,7 @@ public class Astro_Dot implements PlugIn {
                                     compute_Image_parameters(roiAstro, r, rm.getCount(), imgAstroZCrop, imgAstroZCropMap, nucAstro, dotsPop, outPutResults,
                                             rootName, noAstroDot);
                                     // write dots parameters
-                                    computeDotsParams(imgAstroZCropMap, imgAstroZCrop, dotsPop, nucAstro, roiAstro.getName(), outPutDotsResults, rootName);
+                                    computeDotsParams(dotsPop, nucAstro, roiAstro.getName(), outPutDotsResults, rootName);
                                     flush_close(imgAstroZCrop);
                                     flush_close(imgAstroZCropMap);
                                 }

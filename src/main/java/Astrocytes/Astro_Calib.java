@@ -8,7 +8,6 @@ import static Tools.Astro_Dots_Tools.find_dots;
 import static Tools.Astro_Dots_Tools.flush_close;
 import static Tools.Astro_Dots_Tools.median_filter;
 import static Tools.Astro_Dots_Tools.objectsSizeFilter;
-import static Tools.Astro_Dots_Tools.stdBg;
 import static Tools.Astro_Dots_Tools.threshold;
 import fiji.util.gui.GenericDialogPlus;
 import ij.IJ;
@@ -165,7 +164,7 @@ public class Astro_Calib implements PlugIn {
             // Write headers for calibration parameters file
             FileWriter fileCalibResults = new FileWriter(outDirResults + "Calibration_results_" + inDir.getName() + ".xls", false);
             BufferedWriter outPutDotsResults = new BufferedWriter(fileCalibResults);
-            outPutDotsResults.write("rootName\tAstroMeanInt\tAstroStdInt\tBgMeanInt\tBgStdInt\n");
+            outPutDotsResults.write("rootName\tAstroMeanInt\tAstroStdInt\tBgMeanInt\n");
             outPutDotsResults.flush();
             
             // create OME-XML metadata store of the latest schema version
@@ -248,12 +247,12 @@ public class Astro_Calib implements PlugIn {
                         // make substack
                         ImagePlus imgAstroMask = imgAstro.duplicate();
                         median_filter(imgAstroMask, 2);
-                        threshold(imgAstroMask, "Li", false);
+                        threshold(imgAstroMask, "Li", false, false);
                         IJ.run(imgAstroMask, "Options...", "iterations=1 count=1 do=Open stack");
                         
                         // No astro image
                         median_filter(imgNoAstro, 2);
-                        threshold(imgNoAstro, "Li", false);
+                        threshold(imgNoAstro, "Li", false, false);
                         IJ.run(imgNoAstro, "Options...", "iterations=1 count=1 do=Open stack");
                         
                         /**
@@ -300,7 +299,7 @@ public class Astro_Calib implements PlugIn {
                          * Save results
                          */    
                         outPutDotsResults.write(rootName+"\t"+stats.getMean()+"\t"+stats.getStandardDeviation()+"\t"+
-                                bg+"\t"+stdBg+"\n");
+                                bg+"\n");
                         outPutDotsResults.flush();
                         
                         // save dots image

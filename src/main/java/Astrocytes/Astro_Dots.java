@@ -6,12 +6,10 @@ import static Tools.Astro_Dots_Tools.*;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;
-import ij.gui.WaitForUserDialog;
 import ij.measure.Calibration;
 import ij.plugin.Duplicator;
 import ij.plugin.PlugIn;
 import ij.plugin.frame.RoiManager;
-import ij.process.FloatPolygon;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -162,10 +160,12 @@ public class Astro_Dots implements PlugIn {
                         // Astrocyte channel
                         IJ.showStatus("Opening Astrocyte channel");
                         ImagePlus imgAstro = BF.openImagePlus(options)[ch.get(1)];
+                        IJ.run(imgNuc,"16-bit", "");
                         
                         // Dots channel
                         IJ.showStatus("Opening Dots channel");
                         ImagePlus    imgDots = BF.openImagePlus(options)[ch.get(2)];
+                        IJ.run(imgNuc,"16-bit", "");
                         
                         // for each roi open image and crop
                         for (int r = 0; r < rm.getCount(); r++) {
@@ -190,7 +190,6 @@ public class Astro_Dots implements PlugIn {
                             imgNucZCrop.updateAndDraw();
                             roiAstro = imgNucZCrop.getRoi();
                             imgNucZCrop.deleteRoi();
-                            IJ.run(imgNucZCrop, "16-bit", "");
                             median_filter(imgNuc, 4);
                             IJ.run(imgNucZCrop, "Difference of Gaussians", "  sigma1=30 sigma2=20 stack");
                             threshold(imgNucZCrop, "Otsu", true);

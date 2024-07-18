@@ -14,7 +14,7 @@
   2. *525:* Astrocytes
   3. *570:* RNA dots
 
-With each image should be provided a .roi or .zip file containing one or multiple ROI(s).
+With each image should be provided a *.roi* or *.zip* file containing one or multiple ROI(s).
 A ROI, named *..._zStart_zStop*, should surround each astrocyte that needs to be analyzed.
 
 ### Plugin description
@@ -33,7 +33,7 @@ A ROI, named *..._zStart_zStop*, should surround each astrocyte that needs to be
 
 * **3DImageSuite** Fiji plugin
 * **CLIJ2** Fiji plugin
-* **Cellpose** conda environment + cyto2 model
+* **Cellpose** conda environment + *cyto2* model
 
 ### Version history
 

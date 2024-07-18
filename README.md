@@ -15,7 +15,7 @@
   3. *570:* RNA dots
 
 With each image should be provided a .roi or .zip file containing one or multiple ROI(s).
-Each ROI, named *..._zStart_zStop* should surround an astrocyte that needs to be analyzed.
+A ROI, named *..._zStart_zStop*, should surround each astrocyte that needs to be analyzed.
 
 ### Plugin description
 
@@ -26,7 +26,7 @@ Each ROI, named *..._zStart_zStop* should surround an astrocyte that needs to be
 * For each ROI provided:
   * Open dialog box allowing the user to select the proper astrocyte nucleus
   * Dilate the corresponding nucleus to get the astrocyte soma
-  * Fill corresponding soma in black in astrocytes mask to get astrocytes processes only
+  * Fill the obtained soma in black in astrocyte mask to get the mask of astrocyte processes only
   * Compute RNA dots volume and background-corrected intensity in each compartment: astrocyte nucleus / astrocyte processes / outside astrocyte
 
 ### Dependencies

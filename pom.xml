@@ -1,168 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
         
-	<groupId>cirb</groupId>
-	<artifactId>Astro_Dots</artifactId>
-	<version>1.2.0</version>
-        <packaging>jar</packaging>
-	<name>plugins/Astro_Dots.jar</name>
-	<description>Measure intensity, nb of dots in cytoplasm and branch of Astrocytes
-        </description>
+    <parent>
+        <groupId>org.scijava</groupId>
+        <artifactId>pom-scijava</artifactId>
+        <version>37.0.0</version>
+        <relativePath />
+    </parent>
+        
+    <groupId>fr.cirb.orion</groupId>
+    <artifactId>Astro_Dots</artifactId>
+    <version>2.0.0</version>
+    <packaging>jar</packaging>
+    
+    <name>Astro_Dots</name>
+    <description>
+        Detect astrocyte nucleus and processes
+        Detect RNA dots
+        Compute RNA dots volume and intensity in nucleus, processes and outside astrocyte 
+    </description>
+    <url>https://github.com/orion-cirb/Astro_Dots</url>
+    <inceptionYear>2024</inceptionYear>
+    <organization>
+        <name>orion-cirb</name>
+        <url>http://orion-cirb.fr/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>None</name>
+        </license>
+    </licenses>
 
-	<developers>
-            <developer>
-                <id>phm</id>
-                <name>Philippe Mailly</name>
-                <email>philippe.mailly@college-de-france.fr</email>
-                <url></url>
-                <organization>CIRB, Collège de France</organization>
-                <roles>
-                        <role>developer</role>
-                </roles>
-                <timezone>-1</timezone>
-            </developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>hm</id>
+            <name>Héloïse Monnet</name>
+            <email>heloise.monnet@college-de-france.fr</email>
+            <organization>CIRB, Collège de France</organization>
+            <roles>
+                    <role>developer</role>
+            </roles>
+      </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Philippe Mailly</name>
+            <email>philippe.mailly@college-de-france.fr</email>
+            <properties><id>phm</id></properties>
+        </contributor>
+    </contributors>
 
-	<scm>
-            <connection>scm:git:git://github.com/imagej/Astro_Hep863.jar</connection>
-            <developerConnection>scm:git:git@github.com:imagej/Astro_Hep863.jar</developerConnection>
-            <tag>HEAD</tag>
-            <url>https://github.com/pmailly/Astro_Hep863.jar</url>
-	</scm>
+    <mailingLists>
+        <mailingList>
+            <name>None</name>
+        </mailingList>
+    </mailingLists>
+    
+    <scm>
+        <url>https://github.com/orion-cirb/Astro_Dots</url> 
+    </scm>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/orion-cirb/Astro_Dots</url>
+    </issueManagement>
+    <ciManagement>
+        <system>None</system>
+    </ciManagement>
+    
+    <properties>
+        <imagej.app.directory>/opt/Fiji.app/</imagej.app.directory>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <license.licenseName>None</license.licenseName>
+        <license.copyrightOwners>None</license.copyrightOwners>
+    </properties>
+    
+    <repositories>
+        <repository>
+            <id>scijava.public</id>
+            <url>https://maven.scijava.org/content/groups/public</url>
+        </repository>
+    </repositories>
 
-	<properties>
-            <imagej.app.directory>/opt/Fiji.app/</imagej.app.directory>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <main-class>Astro_Dots.jar</main-class>
-	</properties>
-
-	<dependencies>
-            <dependency>
-                <groupId>ome</groupId>
-                <artifactId>bioformats_package</artifactId>
-                <version>6.11.0</version>
-            </dependency>
-            <dependency>
-                <groupId>ome</groupId>
-                <artifactId>formats-common</artifactId>
-                <version>5.2.4</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>ome</groupId>
-                <artifactId>formats-api</artifactId>
-                <version>6.11.0</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>mpicbg</groupId>
-                <artifactId>mpicbg</artifactId>
-                <version>20120621</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-math3</artifactId>
-                <version>3.6.1</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mcib3d</groupId>
-                <artifactId>mcib3d-core</artifactId>
-                <version>4.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>sc.fiji</groupId>
-                <artifactId>fiji-lib</artifactId>
-                <version>2.1.3-SNAPSHOT</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>org.w3c</groupId>
-                <artifactId>dom</artifactId>
-                <version>2.3.0-jaxb-1.0.6</version>
-            </dependency>
-	<dependency>
-                <groupId>net.imagej</groupId>
-                <artifactId>ij</artifactId>
-                <version>1.53u</version>
-                <type>jar</type>
-            </dependency>
-	 <dependency>
-	  <groupId>net.imagej</groupId>
-	  <artifactId>ij-data</artifactId>
-	  <version>2.0.0-SNAPSHOT</version>
-	  <type>jar</type>
-	 </dependency>
-	 <dependency>
-	  <groupId>net.imagej</groupId>
-	  <artifactId>ij-tools</artifactId>
-	  <version>2.0.0-SNAPSHOT</version>
-	  <type>jar</type>
-	 </dependency>
-	 <dependency>
-	  <groupId>sc.fiji</groupId>
-	  <artifactId>CorrectBleach_</artifactId>
-	  <version>2.0.4-SNAPSHOT</version>
-	  <type>jar</type>
-	 </dependency>
-	 <dependency>
-	  <groupId>sc.fiji</groupId>
-	  <artifactId>LocalThickness_</artifactId>
-	  <version>4.0.4-SNAPSHOT</version>
-	  <type>jar</type>
-	 </dependency>
-	</dependencies>
-        <repositories>
-            <repository>
-		<id>imagej.public</id>
-		<url>https://maven.imagej.net/content/groups/public</url>
-            </repository>
-            <repository>
-                <id>ome</id>
-                <name>Bio-Formats Repo</name>
-                <url>https://artifacts.openmicroscopy.org/artifactory/maven</url>
-            </repository>
-            <repository>
-                <id>jitpack.io</id>
-                <url>https://jitpack.io</url>
-            </repository>
-        </repositories>
-	<build>
-            <plugins>
-		<plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
-                    <configuration>
-                        <showDeprecation>true</showDeprecation>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                    </configuration>
-		</plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>copytoplugins</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <configuration>
-                                <tasks>
-                                    <copy todir="${imagej.app.directory}/plugins/CIRB" file="target/${project.build.finalName}.jar"/>
-                                </tasks>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-	</build>
+    <dependencies>
+        <!-- 3D Image Suite -->
+        <dependency>
+            <groupId>mcib</groupId>
+            <artifactId>mcib3d-core</artifactId>
+            <version>4.0.93</version>
+         </dependency>
+        <!-- CLIJ -->
+        <dependency>
+            <groupId>net.haesleinhuepf</groupId>
+            <artifactId>clij2_</artifactId>
+            <version>2.5.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.haesleinhuepf</groupId>
+            <artifactId>clijx-assistant-bonej_</artifactId>
+            <version>0.6.0.1</version>
+        </dependency>
+        <!-- Local Thickness -->
+        <dependency>
+            <groupId>sc.fiji</groupId>
+            <artifactId>LocalThickness_</artifactId>
+            <version>5.0.0</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+        
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copytoplugins</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy todir="${imagej.app.directory}/plugins/CIRB" file="target/${project.build.finalName}.jar"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

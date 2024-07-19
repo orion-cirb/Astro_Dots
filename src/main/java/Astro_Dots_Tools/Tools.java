@@ -571,8 +571,12 @@ public class Tools {
                         objDilInImg.addVoxel(v);
                 }
             }
+            objDilInImg.setVoxelSizeXY​(cal.pixelWidth);
+            objDilInImg.setVoxelSizeZ(cal.pixelDepth);
             return(objDilInImg);
         } else {
+            objDil.setVoxelSizeXY​(cal.pixelWidth);
+            objDil.setVoxelSizeZ(cal.pixelDepth);
             return(objDil);
         }
     }
@@ -694,7 +698,7 @@ public class Tools {
         
         IJ.run(locThickAstro, "Calibrate...", "function=None unit=µm");
         IJ.run(locThickAstro, "Calibration Bar...", "location=[Upper Left] fill=White label=Black number=5 decimal=2 font=13 zoom=0.8 overlay show");
-        new FileSaver(locThickAstro).saveAsTiff(imgDir + imgName + "_" + roiName + "_diameters.tif");
+        new FileSaver(locThickAstro).saveAsTiff(imgDir + imgName + "_" + roiName + "_diam.tif");
         
         ImageHandler imhSoma = ImageHandler.wrap(maskAstro).createSameDimensions();
         objSoma.drawObject(imhSoma, 255);

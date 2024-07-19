@@ -89,7 +89,7 @@ public class Astro_Dots implements PlugIn {
             // Global results
             FileWriter fileWriter = new FileWriter(outputDir + "results.csv", false);
             BufferedWriter results = new BufferedWriter(fileWriter);
-            results.write("Image name\tROI name\tROI volume (µm3)\tSoma volume (µm3)\tProcesses volume (µm3)\tDots bg intensity"
+            results.write("Image name\tROI name\tROI volume (µm3)\tSoma volume (µm3)\tProcesses volume (µm3)\tDots bg noise"
                     + "\tDots total volume in soma (µm3)\tDots bg-corr total intensity in soma"
                     + "\tDots total volume in processes (µm3)\tDots bg-corr total intensity in processes"
                     + "\tDots total volume outside astrocyte (µm3)\tDots bg-corr total intensity outside astrocyte\n");

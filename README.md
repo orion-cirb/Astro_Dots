@@ -37,4 +37,4 @@ A ROI, named *..._zStart_zStop*, should surround each astrocyte that needs to be
 
 ### Version history
 
-Version 2 released on July 19, 2024.
+Version 2 released on July 22, 2024.

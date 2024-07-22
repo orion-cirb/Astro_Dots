@@ -712,18 +712,18 @@ public class Tools {
         ImagePlus[] resultsAstro = {null, maskAstro, imhSoma.getImagePlus(), imgAstro, imgNuc};
         ImagePlus imgResultsAstro = new RGBStackMerge().mergeHyperstacks(resultsAstro, true);
         imgResultsAstro.setCalibration(cal);
-        imgResultsAstro.setC(2);
-        IJ.run(imgResultsAstro, "Enhance Contrast", "saturated=0.35");
         imgResultsAstro.setC(3);
+        IJ.run(imgResultsAstro, "Enhance Contrast", "saturated=0.35");
+        imgResultsAstro.setC(4);
         IJ.run(imgResultsAstro, "Enhance Contrast", "saturated=0.35");
         new FileSaver(imgResultsAstro).saveAsTiff(imgDir + imgName + "_" + roiName + "_astro.tif");
         
         ImagePlus[] resultsDots = {imhDotsSoma.getImagePlus(), imhDotsProcess.getImagePlus(), imhDotsOut.getImagePlus(), imgAstro, imgDots};
         ImagePlus imgResultsDots = new RGBStackMerge().mergeHyperstacks(resultsDots, true);
         imgResultsDots.setCalibration(cal);
-        imgResultsDots.setC(3);
-        IJ.run(imgResultsDots, "Enhance Contrast", "saturated=0.35");
         imgResultsDots.setC(4);
+        IJ.run(imgResultsDots, "Enhance Contrast", "saturated=0.35");
+        imgResultsDots.setC(5);
         IJ.run(imgResultsDots, "Enhance Contrast", "saturated=0.35");
         new FileSaver(imgResultsDots).saveAsTiff(imgDir + imgName + "_" + roiName + "_dots.tif");
         

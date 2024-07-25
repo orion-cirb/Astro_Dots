@@ -90,9 +90,9 @@ public class Astro_Dots implements PlugIn {
             FileWriter fileWriter = new FileWriter(outputDir + "results.csv", false);
             BufferedWriter results = new BufferedWriter(fileWriter);
             results.write("Image name\tROI name\tROI volume (µm3)\tSoma volume (µm3)\tProcesses volume (µm3)\tDots bg noise"
-                    + "\tDots total volume in soma (µm3)\tDots bg-corr total intensity in soma"
-                    + "\tDots total volume in processes (µm3)\tDots bg-corr total intensity in processes"
-                    + "\tDots total volume outside astrocyte (µm3)\tDots bg-corr total intensity outside astrocyte\n");
+                    + "\tDots total volume in soma (µm3)\tDots estimated nb in soma\tDots bg-corr total intensity in soma"
+                    + "\tDots total volume in processes (µm3)\tDots estimated nb in processes\tDots bg-corr total intensity in processes"
+                    + "\tDots total volume outside astrocyte (µm3)\tDots estimated nb outside astrocyte\tDots bg-corr total intensity outside astrocyte\n");
             results.flush();
             
             for (String f : imageFiles) {

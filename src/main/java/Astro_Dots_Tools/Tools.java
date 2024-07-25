@@ -74,6 +74,7 @@ public class Tools {
     
     // RNA dots segmentation and classification
     public String dotsThMethod = "Triangle";
+    private double dotEstimatedVol = 0.003; // µm3
    
 
     /**
@@ -240,7 +241,7 @@ public class Tools {
      */
     public String[] dialog(String[] channels) {
         GenericDialogPlus gd = new GenericDialogPlus("Parameters");
-        gd.setInsets​(0, 50, 0);
+        gd.setInsets​(0, 60, 0);
         gd.addImage(icon);
         
         gd.addMessage("Channels", Font.getFont("Monospace"), Color.blue);
@@ -259,6 +260,7 @@ public class Tools {
         
         gd.addMessage("RNA dots segmentation", Font.getFont("Monospace"), Color.blue);
         gd.addChoice("Thresholding method:", thMethods, dotsThMethod);
+        gd.addNumericField("Dot estimated volume (µm3)", dotEstimatedVol, 4);
         
         gd.addMessage("Image calibration", Font.getFont("Monospace"), Color.blue);
         gd.addNumericField("XY pixel size (µm):", cal.pixelWidth, 4);
@@ -278,6 +280,7 @@ public class Tools {
         astroThMethod = gd.getNextChoice();
         
         dotsThMethod = gd.getNextChoice();
+        dotEstimatedVol = gd.getNextNumber();
         
         cal.pixelWidth = cal.pixelHeight = gd.getNextNumber();
         cal.pixelDepth = gd.getNextNumber();
@@ -672,7 +675,9 @@ public class Tools {
         double dotsOutInt = new MeasureIntensity(objsDots.get(2), imhDots).getValueMeasurement(MeasureIntensity.INTENSITY_SUM) - bgDots * new MeasureVolume(objsDots.get(2)).getVolumePix();
         
         results.write(imgName+"\t"+roi.getName()+"\t"+roiVol+"\t"+somaVol+"\t"+processVol+"\t"+bgDots+
-                      "\t"+dotsSomaVol+"\t"+dotsSomaInt+"\t"+dotsProcessVol+"\t"+dotsProcessInt+"\t"+dotsOutVol+"\t"+dotsOutInt+"\n");
+                      "\t"+dotsSomaVol+"\t"+(int)Math.round(dotsSomaVol/dotEstimatedVol)+"\t"+dotsSomaInt+
+                      "\t"+dotsProcessVol+"\t"+(int)Math.round(dotsProcessVol/dotEstimatedVol)+"\t"+dotsProcessInt+
+                      "\t"+dotsOutVol+"\t"+(int)Math.round(dotsOutVol/dotEstimatedVol)+"\t"+dotsOutInt+"\n");
         results.flush();
     }
     

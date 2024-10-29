@@ -7,6 +7,7 @@ import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.NonBlockingGenericDialog;
 import ij.gui.Roi;
+import ij.gui.WaitForUserDialog;
 import ij.io.FileSaver;
 import ij.measure.*;
 import ij.plugin.Duplicator;
@@ -434,8 +435,8 @@ public class Tools {
         double totalInt = 0;
         int nbZeroPixels = 0;
         for(int z = 0; z < imgBg.getNSlices(); ++z) {
-            for(int x = 0; x < imgBg.getHeight(); ++x) {
-                for(int y = 0; y < imgBg.getWidth(); ++y) {
+            for(int x = 0; x < imgBg.getWidth(); ++x) {
+                for(int y = 0; y < imgBg.getHeight(); ++y) {
                     double pixelInt = imhBg.getPixel(x, y, z);
                     if(pixelInt != 0)
                         totalInt += pixelInt;
@@ -593,7 +594,7 @@ public class Tools {
         double maxVol = 0;
         
         for (Object3DInt nuc: nucPop.getObjects3DInt()) {
-            double vol = new MeasureVolume(nuc).getValueMeasurement(MeasureVolume.VOLUME_PIX);
+            double vol = new MeasureVolume(nuc).getVolumePix();
             if (vol > maxVol) {
                 maxVol = vol;
                 label = nuc.getLabel();

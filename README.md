@@ -15,7 +15,7 @@
   3. *570:* RNA dots
 
 With each image should be provided a *.roi* or *.zip* file containing one or multiple ROI(s).
-A ROI, named *..._zStart_zStop*, should surround each astrocyte that needs to be analyzed.
+A ROI, named *...-zStart-zStop*, should surround each astrocyte that needs to be analyzed.
 
 ### Plugin description
 

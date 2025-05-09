@@ -27,7 +27,7 @@ A ROI, named *...-zStart-zStop*, should surround each astrocyte that needs to be
   * Open dialog box allowing the user to select the proper astrocyte nucleus
   * Dilate the corresponding nucleus to get the astrocyte soma
   * Fill the obtained soma in black in astrocyte mask to get the mask of astrocyte processes only
-  * Compute RNA dots volume and background-corrected intensity in each compartment: astrocyte nucleus / astrocyte processes / outside astrocyte
+  * Compute RNA dots volume and background-corrected intensity in each compartment: astrocyte soma / astrocyte processes / outside astrocyte
 
 ### Dependencies
 
